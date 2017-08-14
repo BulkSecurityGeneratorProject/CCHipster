@@ -1,0 +1,45 @@
+
+<div *ngIf="agiosCase">
+    <h2><span>Agios Case</span> {{agiosCase.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Case Nr</span></dt>
+        <dd>
+            <span>{{agiosCase.caseNr}}</span>
+        </dd>
+        <dt><span>Person Nr</span></dt>
+        <dd>
+            <span>{{agiosCase.personNr}}</span>
+        </dd>
+        <dt><span>Company Nr</span></dt>
+        <dd>
+            <span>{{agiosCase.companyNr}}</span>
+        </dd>
+        <dt><span>Agios Node Name</span></dt>
+        <dd>
+            <span>{{agiosCase.agiosNodeName}}</span>
+        </dd>
+        <dt><span>Workflow Uid</span></dt>
+        <dd>
+            <span>{{agiosCase.workflowUid}}</span>
+        </dd>
+        <dt><span>Case No</span></dt>
+        <dd>
+            <span>{{agiosCase.caseNo}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'agios-case-my-suffix/'+ agiosCase.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

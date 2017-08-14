@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "caseNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "personNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "companyNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "agiosNodeName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "workflowUid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "caseNo",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170814094737",
+    "javadoc": "not an ignored comment",
+    "entityTableName": "agios_case",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "mySuffix"
+}
