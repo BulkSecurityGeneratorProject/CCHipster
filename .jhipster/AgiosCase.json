@@ -59,7 +59,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170816080132",
+    "changelogDate": "20170816150754",
     "javadoc": "not an ignored comment",
     "entityTableName": "agios_case",
     "dto": "mapstruct",

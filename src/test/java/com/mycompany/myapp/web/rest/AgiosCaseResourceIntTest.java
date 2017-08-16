@@ -5,6 +5,7 @@ import com.mycompany.myapp.AgiosHipsterApp;
 import com.mycompany.myapp.domain.AgiosCase;
 import com.mycompany.myapp.repository.AgiosCaseRepository;
 import com.mycompany.myapp.service.AgiosCaseService;
+import com.mycompany.myapp.repository.search.AgiosCaseSearchRepository;
 import com.mycompany.myapp.service.dto.AgiosCaseDTO;
 import com.mycompany.myapp.service.mapper.AgiosCaseMapper;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
@@ -92,6 +93,9 @@ public class AgiosCaseResourceIntTest {
     private AgiosCaseService agiosCaseService;
 
     @Autowired
+    private AgiosCaseSearchRepository agiosCaseSearchRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -144,6 +148,7 @@ public class AgiosCaseResourceIntTest {
 
     @Before
     public void initTest() {
+        agiosCaseSearchRepository.deleteAll();
         agiosCase = createEntity(em);
     }
 
@@ -177,6 +182,10 @@ public class AgiosCaseResourceIntTest {
         assertThat(testAgiosCase.getDisplayName()).isEqualTo(DEFAULT_DISPLAY_NAME);
         assertThat(testAgiosCase.getEvtclose()).isEqualTo(DEFAULT_EVTCLOSE);
         assertThat(testAgiosCase.getAgiosEntity()).isEqualTo(DEFAULT_AGIOS_ENTITY);
+
+        // Validate the AgiosCase in Elasticsearch
+        AgiosCase agiosCaseEs = agiosCaseSearchRepository.findOne(testAgiosCase.getId());
+        assertThat(agiosCaseEs).isEqualToComparingFieldByField(testAgiosCase);
     }
 
     @Test
@@ -266,6 +275,7 @@ public class AgiosCaseResourceIntTest {
     public void updateAgiosCase() throws Exception {
         // Initialize the database
         agiosCaseRepository.saveAndFlush(agiosCase);
+        agiosCaseSearchRepository.save(agiosCase);
         int databaseSizeBeforeUpdate = agiosCaseRepository.findAll().size();
 
         // Update the agiosCase
@@ -310,6 +320,10 @@ public class AgiosCaseResourceIntTest {
         assertThat(testAgiosCase.getDisplayName()).isEqualTo(UPDATED_DISPLAY_NAME);
         assertThat(testAgiosCase.getEvtclose()).isEqualTo(UPDATED_EVTCLOSE);
         assertThat(testAgiosCase.getAgiosEntity()).isEqualTo(UPDATED_AGIOS_ENTITY);
+
+        // Validate the AgiosCase in Elasticsearch
+        AgiosCase agiosCaseEs = agiosCaseSearchRepository.findOne(testAgiosCase.getId());
+        assertThat(agiosCaseEs).isEqualToComparingFieldByField(testAgiosCase);
     }
 
     @Test
@@ -336,6 +350,7 @@ public class AgiosCaseResourceIntTest {
     public void deleteAgiosCase() throws Exception {
         // Initialize the database
         agiosCaseRepository.saveAndFlush(agiosCase);
+        agiosCaseSearchRepository.save(agiosCase);
         int databaseSizeBeforeDelete = agiosCaseRepository.findAll().size();
 
         // Get the agiosCase
@@ -343,9 +358,41 @@ public class AgiosCaseResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean agiosCaseExistsInEs = agiosCaseSearchRepository.exists(agiosCase.getId());
+        assertThat(agiosCaseExistsInEs).isFalse();
+
         // Validate the database is empty
         List<AgiosCase> agiosCaseList = agiosCaseRepository.findAll();
         assertThat(agiosCaseList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    public void searchAgiosCase() throws Exception {
+        // Initialize the database
+        agiosCaseRepository.saveAndFlush(agiosCase);
+        agiosCaseSearchRepository.save(agiosCase);
+
+        // Search the agiosCase
+        restAgiosCaseMockMvc.perform(get("/api/_search/agios-cases?query=id:" + agiosCase.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(agiosCase.getId().intValue())))
+            .andExpect(jsonPath("$.[*].caseNr").value(hasItem(DEFAULT_CASE_NR.intValue())))
+            .andExpect(jsonPath("$.[*].caseNo").value(hasItem(DEFAULT_CASE_NO.toString())))
+            .andExpect(jsonPath("$.[*].personNr").value(hasItem(DEFAULT_PERSON_NR.toString())))
+            .andExpect(jsonPath("$.[*].companyNr").value(hasItem(DEFAULT_COMPANY_NR.toString())))
+            .andExpect(jsonPath("$.[*].agiosNodeName").value(hasItem(DEFAULT_AGIOS_NODE_NAME.toString())))
+            .andExpect(jsonPath("$.[*].workflowUid").value(hasItem(DEFAULT_WORKFLOW_UID.toString())))
+            .andExpect(jsonPath("$.[*].reasons").value(hasItem(DEFAULT_REASONS.toString())))
+            .andExpect(jsonPath("$.[*].statusUid").value(hasItem(DEFAULT_STATUS_UID.toString())))
+            .andExpect(jsonPath("$.[*].currentStepUid").value(hasItem(DEFAULT_CURRENT_STEP_UID.toString())))
+            .andExpect(jsonPath("$.[*].codeName").value(hasItem(DEFAULT_CODE_NAME.toString())))
+            .andExpect(jsonPath("$.[*].evtOpen").value(hasItem(DEFAULT_EVT_OPEN.toString())))
+            .andExpect(jsonPath("$.[*].displayName").value(hasItem(DEFAULT_DISPLAY_NAME.toString())))
+            .andExpect(jsonPath("$.[*].evtclose").value(hasItem(DEFAULT_EVTCLOSE.toString())))
+            .andExpect(jsonPath("$.[*].agiosEntity").value(hasItem(DEFAULT_AGIOS_ENTITY.toString())));
     }
 
     @Test

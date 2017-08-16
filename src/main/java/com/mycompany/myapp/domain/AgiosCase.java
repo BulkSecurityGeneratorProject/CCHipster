@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import io.swagger.annotations.ApiModel;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.Objects;
 @ApiModel(description = "not an ignored comment")
 @Entity
 @Table(name = "agios_case")
+@Document(indexName = "agioscase")
 public class AgiosCase implements Serializable {
 
     private static final long serialVersionUID = 1L;
