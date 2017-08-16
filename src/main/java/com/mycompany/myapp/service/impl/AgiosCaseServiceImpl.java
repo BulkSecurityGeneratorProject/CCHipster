@@ -7,8 +7,14 @@ import com.mycompany.myapp.service.dto.AgiosCaseDTO;
 import com.mycompany.myapp.service.mapper.AgiosCaseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +26,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class AgiosCaseServiceImpl implements AgiosCaseService{
+	
+	@Autowired
+	RestTemplate restTemplate;
 
     private final Logger log = LoggerFactory.getLogger(AgiosCaseServiceImpl.class);
 
@@ -55,9 +64,18 @@ public class AgiosCaseServiceImpl implements AgiosCaseService{
     @Transactional(readOnly = true)
     public List<AgiosCaseDTO> findAll() {
         log.debug("Request to get all AgiosCases");
-        return agiosCaseRepository.findAll().stream()
+        /*return agiosCaseRepository.findAll().stream()
             .map(agiosCaseMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+            .collect(Collectors.toCollection(LinkedList::new));*/
+        
+       
+		ResponseEntity<List<AgiosCaseDTO>> rateResponse =
+                restTemplate.exchange("http://localhost:8080/bsicrm/aduno-seb?action=caseTablePage",
+                            HttpMethod.GET, null, new ParameterizedTypeReference<List<AgiosCaseDTO>>() {
+                    });
+        List<AgiosCaseDTO> rates = rateResponse.getBody();
+        
+        return rates;
     }
 
     /**
@@ -70,8 +88,15 @@ public class AgiosCaseServiceImpl implements AgiosCaseService{
     @Transactional(readOnly = true)
     public AgiosCaseDTO findOne(Long id) {
         log.debug("Request to get AgiosCase : {}", id);
-        AgiosCase agiosCase = agiosCaseRepository.findOne(id);
-        return agiosCaseMapper.toDto(agiosCase);
+        /*AgiosCase agiosCase = agiosCaseRepository.findOne(id);*/
+        ResponseEntity<List<AgiosCaseDTO>> rateResponse =
+                restTemplate.exchange("http://localhost:8080/bsicrm/aduno-seb?action=caseTablePage&caseNr="+id,
+                            HttpMethod.GET, null, new ParameterizedTypeReference<List<AgiosCaseDTO>>() {
+                    });
+        List<AgiosCaseDTO> rates = rateResponse.getBody();
+        
+        //return agiosCaseMapper.toDto(agiosCase);
+        return rates.get(0);
     }
 
     /**
