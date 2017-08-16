@@ -2,18 +2,24 @@
 // an ignored comment
 /** not an ignored comment */
 entity AgiosCase {
-	caseNr String,
+	caseNr Long,
+    caseNo String,
 	personNr String,
 	companyNr String,
 	agiosNodeName String,
     workflowUid String,
-    caseNo String
-  
+    reasons String,
+    statusUid String,
+    currentStepUid String,
+    codeName String,
+    evtOpen String,
+    displayName String,
+    evtclose String,
+    agiosEntity String 
 }
 
 dto * with mapstruct
 
 // Set service options to all except few
 service all with serviceImpl except Employee, Job
-// Set an angular suffix
-angularSuffix * with mySuffix
+

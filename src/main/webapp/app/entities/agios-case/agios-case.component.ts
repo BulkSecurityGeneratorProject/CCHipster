@@ -3,22 +3,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiAlertService } from 'ng-jhipster';
 
-import { AgiosCaseMySuffix } from './agios-case-my-suffix.model';
-import { AgiosCaseMySuffixService } from './agios-case-my-suffix.service';
+import { AgiosCase } from './agios-case.model';
+import { AgiosCaseService } from './agios-case.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
-    selector: 'jhi-agios-case-my-suffix',
-    templateUrl: './agios-case-my-suffix.component.html'
+    selector: 'jhi-agios-case',
+    templateUrl: './agios-case.component.html'
 })
-export class AgiosCaseMySuffixComponent implements OnInit, OnDestroy {
-agiosCases: AgiosCaseMySuffix[];
+export class AgiosCaseComponent implements OnInit, OnDestroy {
+agiosCases: AgiosCase[];
     currentAccount: any;
     eventSubscriber: Subscription;
 
     constructor(
-        private agiosCaseService: AgiosCaseMySuffixService,
+        private agiosCaseService: AgiosCaseService,
         private alertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
@@ -45,7 +45,7 @@ agiosCases: AgiosCaseMySuffix[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: AgiosCaseMySuffix) {
+    trackId(index: number, item: AgiosCase) {
         return item.id;
     }
     registerChangeInAgiosCases() {

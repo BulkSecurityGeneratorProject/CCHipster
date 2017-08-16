@@ -1,7 +1,7 @@
 <div>
     <h2>
         <span>Agios Cases</span>
-        <button class="btn btn-primary float-right jh-create-entity create-agios-case-my-suffix" [routerLink]="['/', { outlets: { popup: ['agios-case-my-suffix-new'] } }]">
+        <button class="btn btn-primary float-right jh-create-entity create-agios-case" [routerLink]="['/', { outlets: { popup: ['agios-case-new'] } }]">
             <span class="fa fa-plus"></span>
             <span >
             Create new Agios Case
@@ -18,40 +18,56 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Case Nr</span></th>
+            <th><span>Case No</span></th>
             <th><span>Person Nr</span></th>
             <th><span>Company Nr</span></th>
             <th><span>Agios Node Name</span></th>
             <th><span>Workflow Uid</span></th>
-            <th><span>Case No</span></th>
+            <th><span>Reasons</span></th>
+            <th><span>Status Uid</span></th>
+            <th><span>Current Step Uid</span></th>
+            <th><span>Code Name</span></th>
+            <th><span>Evt Open</span></th>
+            <th><span>Display Name</span></th>
+            <th><span>Evtclose</span></th>
+            <th><span>Agios Entity</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let agiosCase of agiosCases ;trackBy: trackId">
-                <td><a [routerLink]="['../agios-case-my-suffix', agiosCase.id ]">{{agiosCase.id}}</a></td>
+                <td><a [routerLink]="['../agios-case', agiosCase.id ]">{{agiosCase.id}}</a></td>
                 <td>{{agiosCase.caseNr}}</td>
+                <td>{{agiosCase.caseNo}}</td>
                 <td>{{agiosCase.personNr}}</td>
                 <td>{{agiosCase.companyNr}}</td>
                 <td>{{agiosCase.agiosNodeName}}</td>
                 <td>{{agiosCase.workflowUid}}</td>
-                <td>{{agiosCase.caseNo}}</td>
+                <td>{{agiosCase.reasons}}</td>
+                <td>{{agiosCase.statusUid}}</td>
+                <td>{{agiosCase.currentStepUid}}</td>
+                <td>{{agiosCase.codeName}}</td>
+                <td>{{agiosCase.evtOpen}}</td>
+                <td>{{agiosCase.displayName}}</td>
+                <td>{{agiosCase.evtclose}}</td>
+                <td>{{agiosCase.agiosEntity}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../agios-case-my-suffix', agiosCase.id ]"
+                                [routerLink]="['../agios-case', agiosCase.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="hidden-md-down">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'agios-case-my-suffix/'+ agiosCase.id + '/edit'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'agios-case/'+ agiosCase.id + '/edit'} }]"
                                 replaceUrl="true"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
                             <span class="hidden-md-down">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'agios-case-my-suffix/'+ agiosCase.id + '/delete'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'agios-case/'+ agiosCase.id + '/delete'} }]"
                                 replaceUrl="true"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>

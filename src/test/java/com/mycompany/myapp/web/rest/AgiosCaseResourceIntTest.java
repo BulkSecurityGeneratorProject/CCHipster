@@ -40,8 +40,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AgiosHipsterApp.class)
 public class AgiosCaseResourceIntTest {
 
-    private static final String DEFAULT_CASE_NR = "AAAAAAAAAA";
-    private static final String UPDATED_CASE_NR = "BBBBBBBBBB";
+    private static final Long DEFAULT_CASE_NR = 1L;
+    private static final Long UPDATED_CASE_NR = 2L;
+
+    private static final String DEFAULT_CASE_NO = "AAAAAAAAAA";
+    private static final String UPDATED_CASE_NO = "BBBBBBBBBB";
 
     private static final String DEFAULT_PERSON_NR = "AAAAAAAAAA";
     private static final String UPDATED_PERSON_NR = "BBBBBBBBBB";
@@ -55,8 +58,29 @@ public class AgiosCaseResourceIntTest {
     private static final String DEFAULT_WORKFLOW_UID = "AAAAAAAAAA";
     private static final String UPDATED_WORKFLOW_UID = "BBBBBBBBBB";
 
-    private static final String DEFAULT_CASE_NO = "AAAAAAAAAA";
-    private static final String UPDATED_CASE_NO = "BBBBBBBBBB";
+    private static final String DEFAULT_REASONS = "AAAAAAAAAA";
+    private static final String UPDATED_REASONS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_STATUS_UID = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS_UID = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CURRENT_STEP_UID = "AAAAAAAAAA";
+    private static final String UPDATED_CURRENT_STEP_UID = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CODE_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_CODE_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_EVT_OPEN = "AAAAAAAAAA";
+    private static final String UPDATED_EVT_OPEN = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DISPLAY_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_DISPLAY_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_EVTCLOSE = "AAAAAAAAAA";
+    private static final String UPDATED_EVTCLOSE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_AGIOS_ENTITY = "AAAAAAAAAA";
+    private static final String UPDATED_AGIOS_ENTITY = "BBBBBBBBBB";
 
     @Autowired
     private AgiosCaseRepository agiosCaseRepository;
@@ -102,11 +126,19 @@ public class AgiosCaseResourceIntTest {
     public static AgiosCase createEntity(EntityManager em) {
         AgiosCase agiosCase = new AgiosCase()
             .caseNr(DEFAULT_CASE_NR)
+            .caseNo(DEFAULT_CASE_NO)
             .personNr(DEFAULT_PERSON_NR)
             .companyNr(DEFAULT_COMPANY_NR)
             .agiosNodeName(DEFAULT_AGIOS_NODE_NAME)
             .workflowUid(DEFAULT_WORKFLOW_UID)
-            .caseNo(DEFAULT_CASE_NO);
+            .reasons(DEFAULT_REASONS)
+            .statusUid(DEFAULT_STATUS_UID)
+            .currentStepUid(DEFAULT_CURRENT_STEP_UID)
+            .codeName(DEFAULT_CODE_NAME)
+            .evtOpen(DEFAULT_EVT_OPEN)
+            .displayName(DEFAULT_DISPLAY_NAME)
+            .evtclose(DEFAULT_EVTCLOSE)
+            .agiosEntity(DEFAULT_AGIOS_ENTITY);
         return agiosCase;
     }
 
@@ -132,11 +164,19 @@ public class AgiosCaseResourceIntTest {
         assertThat(agiosCaseList).hasSize(databaseSizeBeforeCreate + 1);
         AgiosCase testAgiosCase = agiosCaseList.get(agiosCaseList.size() - 1);
         assertThat(testAgiosCase.getCaseNr()).isEqualTo(DEFAULT_CASE_NR);
+        assertThat(testAgiosCase.getCaseNo()).isEqualTo(DEFAULT_CASE_NO);
         assertThat(testAgiosCase.getPersonNr()).isEqualTo(DEFAULT_PERSON_NR);
         assertThat(testAgiosCase.getCompanyNr()).isEqualTo(DEFAULT_COMPANY_NR);
         assertThat(testAgiosCase.getAgiosNodeName()).isEqualTo(DEFAULT_AGIOS_NODE_NAME);
         assertThat(testAgiosCase.getWorkflowUid()).isEqualTo(DEFAULT_WORKFLOW_UID);
-        assertThat(testAgiosCase.getCaseNo()).isEqualTo(DEFAULT_CASE_NO);
+        assertThat(testAgiosCase.getReasons()).isEqualTo(DEFAULT_REASONS);
+        assertThat(testAgiosCase.getStatusUid()).isEqualTo(DEFAULT_STATUS_UID);
+        assertThat(testAgiosCase.getCurrentStepUid()).isEqualTo(DEFAULT_CURRENT_STEP_UID);
+        assertThat(testAgiosCase.getCodeName()).isEqualTo(DEFAULT_CODE_NAME);
+        assertThat(testAgiosCase.getEvtOpen()).isEqualTo(DEFAULT_EVT_OPEN);
+        assertThat(testAgiosCase.getDisplayName()).isEqualTo(DEFAULT_DISPLAY_NAME);
+        assertThat(testAgiosCase.getEvtclose()).isEqualTo(DEFAULT_EVTCLOSE);
+        assertThat(testAgiosCase.getAgiosEntity()).isEqualTo(DEFAULT_AGIOS_ENTITY);
     }
 
     @Test
@@ -170,12 +210,20 @@ public class AgiosCaseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(agiosCase.getId().intValue())))
-            .andExpect(jsonPath("$.[*].caseNr").value(hasItem(DEFAULT_CASE_NR.toString())))
+            .andExpect(jsonPath("$.[*].caseNr").value(hasItem(DEFAULT_CASE_NR.intValue())))
+            .andExpect(jsonPath("$.[*].caseNo").value(hasItem(DEFAULT_CASE_NO.toString())))
             .andExpect(jsonPath("$.[*].personNr").value(hasItem(DEFAULT_PERSON_NR.toString())))
             .andExpect(jsonPath("$.[*].companyNr").value(hasItem(DEFAULT_COMPANY_NR.toString())))
             .andExpect(jsonPath("$.[*].agiosNodeName").value(hasItem(DEFAULT_AGIOS_NODE_NAME.toString())))
             .andExpect(jsonPath("$.[*].workflowUid").value(hasItem(DEFAULT_WORKFLOW_UID.toString())))
-            .andExpect(jsonPath("$.[*].caseNo").value(hasItem(DEFAULT_CASE_NO.toString())));
+            .andExpect(jsonPath("$.[*].reasons").value(hasItem(DEFAULT_REASONS.toString())))
+            .andExpect(jsonPath("$.[*].statusUid").value(hasItem(DEFAULT_STATUS_UID.toString())))
+            .andExpect(jsonPath("$.[*].currentStepUid").value(hasItem(DEFAULT_CURRENT_STEP_UID.toString())))
+            .andExpect(jsonPath("$.[*].codeName").value(hasItem(DEFAULT_CODE_NAME.toString())))
+            .andExpect(jsonPath("$.[*].evtOpen").value(hasItem(DEFAULT_EVT_OPEN.toString())))
+            .andExpect(jsonPath("$.[*].displayName").value(hasItem(DEFAULT_DISPLAY_NAME.toString())))
+            .andExpect(jsonPath("$.[*].evtclose").value(hasItem(DEFAULT_EVTCLOSE.toString())))
+            .andExpect(jsonPath("$.[*].agiosEntity").value(hasItem(DEFAULT_AGIOS_ENTITY.toString())));
     }
 
     @Test
@@ -189,12 +237,20 @@ public class AgiosCaseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(agiosCase.getId().intValue()))
-            .andExpect(jsonPath("$.caseNr").value(DEFAULT_CASE_NR.toString()))
+            .andExpect(jsonPath("$.caseNr").value(DEFAULT_CASE_NR.intValue()))
+            .andExpect(jsonPath("$.caseNo").value(DEFAULT_CASE_NO.toString()))
             .andExpect(jsonPath("$.personNr").value(DEFAULT_PERSON_NR.toString()))
             .andExpect(jsonPath("$.companyNr").value(DEFAULT_COMPANY_NR.toString()))
             .andExpect(jsonPath("$.agiosNodeName").value(DEFAULT_AGIOS_NODE_NAME.toString()))
             .andExpect(jsonPath("$.workflowUid").value(DEFAULT_WORKFLOW_UID.toString()))
-            .andExpect(jsonPath("$.caseNo").value(DEFAULT_CASE_NO.toString()));
+            .andExpect(jsonPath("$.reasons").value(DEFAULT_REASONS.toString()))
+            .andExpect(jsonPath("$.statusUid").value(DEFAULT_STATUS_UID.toString()))
+            .andExpect(jsonPath("$.currentStepUid").value(DEFAULT_CURRENT_STEP_UID.toString()))
+            .andExpect(jsonPath("$.codeName").value(DEFAULT_CODE_NAME.toString()))
+            .andExpect(jsonPath("$.evtOpen").value(DEFAULT_EVT_OPEN.toString()))
+            .andExpect(jsonPath("$.displayName").value(DEFAULT_DISPLAY_NAME.toString()))
+            .andExpect(jsonPath("$.evtclose").value(DEFAULT_EVTCLOSE.toString()))
+            .andExpect(jsonPath("$.agiosEntity").value(DEFAULT_AGIOS_ENTITY.toString()));
     }
 
     @Test
@@ -216,11 +272,19 @@ public class AgiosCaseResourceIntTest {
         AgiosCase updatedAgiosCase = agiosCaseRepository.findOne(agiosCase.getId());
         updatedAgiosCase
             .caseNr(UPDATED_CASE_NR)
+            .caseNo(UPDATED_CASE_NO)
             .personNr(UPDATED_PERSON_NR)
             .companyNr(UPDATED_COMPANY_NR)
             .agiosNodeName(UPDATED_AGIOS_NODE_NAME)
             .workflowUid(UPDATED_WORKFLOW_UID)
-            .caseNo(UPDATED_CASE_NO);
+            .reasons(UPDATED_REASONS)
+            .statusUid(UPDATED_STATUS_UID)
+            .currentStepUid(UPDATED_CURRENT_STEP_UID)
+            .codeName(UPDATED_CODE_NAME)
+            .evtOpen(UPDATED_EVT_OPEN)
+            .displayName(UPDATED_DISPLAY_NAME)
+            .evtclose(UPDATED_EVTCLOSE)
+            .agiosEntity(UPDATED_AGIOS_ENTITY);
         AgiosCaseDTO agiosCaseDTO = agiosCaseMapper.toDto(updatedAgiosCase);
 
         restAgiosCaseMockMvc.perform(put("/api/agios-cases")
@@ -233,11 +297,19 @@ public class AgiosCaseResourceIntTest {
         assertThat(agiosCaseList).hasSize(databaseSizeBeforeUpdate);
         AgiosCase testAgiosCase = agiosCaseList.get(agiosCaseList.size() - 1);
         assertThat(testAgiosCase.getCaseNr()).isEqualTo(UPDATED_CASE_NR);
+        assertThat(testAgiosCase.getCaseNo()).isEqualTo(UPDATED_CASE_NO);
         assertThat(testAgiosCase.getPersonNr()).isEqualTo(UPDATED_PERSON_NR);
         assertThat(testAgiosCase.getCompanyNr()).isEqualTo(UPDATED_COMPANY_NR);
         assertThat(testAgiosCase.getAgiosNodeName()).isEqualTo(UPDATED_AGIOS_NODE_NAME);
         assertThat(testAgiosCase.getWorkflowUid()).isEqualTo(UPDATED_WORKFLOW_UID);
-        assertThat(testAgiosCase.getCaseNo()).isEqualTo(UPDATED_CASE_NO);
+        assertThat(testAgiosCase.getReasons()).isEqualTo(UPDATED_REASONS);
+        assertThat(testAgiosCase.getStatusUid()).isEqualTo(UPDATED_STATUS_UID);
+        assertThat(testAgiosCase.getCurrentStepUid()).isEqualTo(UPDATED_CURRENT_STEP_UID);
+        assertThat(testAgiosCase.getCodeName()).isEqualTo(UPDATED_CODE_NAME);
+        assertThat(testAgiosCase.getEvtOpen()).isEqualTo(UPDATED_EVT_OPEN);
+        assertThat(testAgiosCase.getDisplayName()).isEqualTo(UPDATED_DISPLAY_NAME);
+        assertThat(testAgiosCase.getEvtclose()).isEqualTo(UPDATED_EVTCLOSE);
+        assertThat(testAgiosCase.getAgiosEntity()).isEqualTo(UPDATED_AGIOS_ENTITY);
     }
 
     @Test

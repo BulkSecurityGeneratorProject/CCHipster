@@ -11,7 +11,9 @@ public class AgiosCaseDTO implements Serializable {
 
     private Long id;
 
-    private String caseNr;
+    private Long caseNr;
+
+    private String caseNo;
 
     private String personNr;
 
@@ -21,7 +23,21 @@ public class AgiosCaseDTO implements Serializable {
 
     private String workflowUid;
 
-    private String caseNo;
+    private String reasons;
+
+    private String statusUid;
+
+    private String currentStepUid;
+
+    private String codeName;
+
+    private String evtOpen;
+
+    private String displayName;
+
+    private String evtclose;
+
+    private String agiosEntity;
 
     public Long getId() {
         return id;
@@ -31,12 +47,20 @@ public class AgiosCaseDTO implements Serializable {
         this.id = id;
     }
 
-    public String getCaseNr() {
+    public Long getCaseNr() {
         return caseNr;
     }
 
-    public void setCaseNr(String caseNr) {
+    public void setCaseNr(Long caseNr) {
         this.caseNr = caseNr;
+    }
+
+    public String getCaseNo() {
+        return caseNo;
+    }
+
+    public void setCaseNo(String caseNo) {
+        this.caseNo = caseNo;
     }
 
     public String getPersonNr() {
@@ -71,12 +95,68 @@ public class AgiosCaseDTO implements Serializable {
         this.workflowUid = workflowUid;
     }
 
-    public String getCaseNo() {
-        return caseNo;
+    public String getReasons() {
+        return reasons;
     }
 
-    public void setCaseNo(String caseNo) {
-        this.caseNo = caseNo;
+    public void setReasons(String reasons) {
+        this.reasons = reasons;
+    }
+
+    public String getStatusUid() {
+        return statusUid;
+    }
+
+    public void setStatusUid(String statusUid) {
+        this.statusUid = statusUid;
+    }
+
+    public String getCurrentStepUid() {
+        return currentStepUid;
+    }
+
+    public void setCurrentStepUid(String currentStepUid) {
+        this.currentStepUid = currentStepUid;
+    }
+
+    public String getCodeName() {
+        return codeName;
+    }
+
+    public void setCodeName(String codeName) {
+        this.codeName = codeName;
+    }
+
+    public String getEvtOpen() {
+        return evtOpen;
+    }
+
+    public void setEvtOpen(String evtOpen) {
+        this.evtOpen = evtOpen;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getEvtclose() {
+        return evtclose;
+    }
+
+    public void setEvtclose(String evtclose) {
+        this.evtclose = evtclose;
+    }
+
+    public String getAgiosEntity() {
+        return agiosEntity;
+    }
+
+    public void setAgiosEntity(String agiosEntity) {
+        this.agiosEntity = agiosEntity;
     }
 
     @Override
@@ -105,11 +185,19 @@ public class AgiosCaseDTO implements Serializable {
         return "AgiosCaseDTO{" +
             "id=" + getId() +
             ", caseNr='" + getCaseNr() + "'" +
+            ", caseNo='" + getCaseNo() + "'" +
             ", personNr='" + getPersonNr() + "'" +
             ", companyNr='" + getCompanyNr() + "'" +
             ", agiosNodeName='" + getAgiosNodeName() + "'" +
             ", workflowUid='" + getWorkflowUid() + "'" +
-            ", caseNo='" + getCaseNo() + "'" +
+            ", reasons='" + getReasons() + "'" +
+            ", statusUid='" + getStatusUid() + "'" +
+            ", currentStepUid='" + getCurrentStepUid() + "'" +
+            ", codeName='" + getCodeName() + "'" +
+            ", evtOpen='" + getEvtOpen() + "'" +
+            ", displayName='" + getDisplayName() + "'" +
+            ", evtclose='" + getEvtclose() + "'" +
+            ", agiosEntity='" + getAgiosEntity() + "'" +
             "}";
     }
 }

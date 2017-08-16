@@ -4,20 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { AgiosCaseMySuffix } from './agios-case-my-suffix.model';
-import { AgiosCaseMySuffixPopupService } from './agios-case-my-suffix-popup.service';
-import { AgiosCaseMySuffixService } from './agios-case-my-suffix.service';
+import { AgiosCase } from './agios-case.model';
+import { AgiosCasePopupService } from './agios-case-popup.service';
+import { AgiosCaseService } from './agios-case.service';
 
 @Component({
-    selector: 'jhi-agios-case-my-suffix-delete-dialog',
-    templateUrl: './agios-case-my-suffix-delete-dialog.component.html'
+    selector: 'jhi-agios-case-delete-dialog',
+    templateUrl: './agios-case-delete-dialog.component.html'
 })
-export class AgiosCaseMySuffixDeleteDialogComponent {
+export class AgiosCaseDeleteDialogComponent {
 
-    agiosCase: AgiosCaseMySuffix;
+    agiosCase: AgiosCase;
 
     constructor(
-        private agiosCaseService: AgiosCaseMySuffixService,
+        private agiosCaseService: AgiosCaseService,
         public activeModal: NgbActiveModal,
         private eventManager: JhiEventManager
     ) {
@@ -39,22 +39,22 @@ export class AgiosCaseMySuffixDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-agios-case-my-suffix-delete-popup',
+    selector: 'jhi-agios-case-delete-popup',
     template: ''
 })
-export class AgiosCaseMySuffixDeletePopupComponent implements OnInit, OnDestroy {
+export class AgiosCaseDeletePopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private agiosCasePopupService: AgiosCaseMySuffixPopupService
+        private agiosCasePopupService: AgiosCasePopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.agiosCasePopupService
-                .open(AgiosCaseMySuffixDeleteDialogComponent as Component, params['id']);
+                .open(AgiosCaseDeleteDialogComponent as Component, params['id']);
         });
     }
 

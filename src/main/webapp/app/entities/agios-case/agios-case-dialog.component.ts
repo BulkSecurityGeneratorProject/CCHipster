@@ -6,23 +6,23 @@ import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { AgiosCaseMySuffix } from './agios-case-my-suffix.model';
-import { AgiosCaseMySuffixPopupService } from './agios-case-my-suffix-popup.service';
-import { AgiosCaseMySuffixService } from './agios-case-my-suffix.service';
+import { AgiosCase } from './agios-case.model';
+import { AgiosCasePopupService } from './agios-case-popup.service';
+import { AgiosCaseService } from './agios-case.service';
 
 @Component({
-    selector: 'jhi-agios-case-my-suffix-dialog',
-    templateUrl: './agios-case-my-suffix-dialog.component.html'
+    selector: 'jhi-agios-case-dialog',
+    templateUrl: './agios-case-dialog.component.html'
 })
-export class AgiosCaseMySuffixDialogComponent implements OnInit {
+export class AgiosCaseDialogComponent implements OnInit {
 
-    agiosCase: AgiosCaseMySuffix;
+    agiosCase: AgiosCase;
     isSaving: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
-        private agiosCaseService: AgiosCaseMySuffixService,
+        private agiosCaseService: AgiosCaseService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -46,12 +46,12 @@ export class AgiosCaseMySuffixDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<AgiosCaseMySuffix>) {
-        result.subscribe((res: AgiosCaseMySuffix) =>
+    private subscribeToSaveResponse(result: Observable<AgiosCase>) {
+        result.subscribe((res: AgiosCase) =>
             this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: AgiosCaseMySuffix) {
+    private onSaveSuccess(result: AgiosCase) {
         this.eventManager.broadcast({ name: 'agiosCaseListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
@@ -73,26 +73,26 @@ export class AgiosCaseMySuffixDialogComponent implements OnInit {
 }
 
 @Component({
-    selector: 'jhi-agios-case-my-suffix-popup',
+    selector: 'jhi-agios-case-popup',
     template: ''
 })
-export class AgiosCaseMySuffixPopupComponent implements OnInit, OnDestroy {
+export class AgiosCasePopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private agiosCasePopupService: AgiosCaseMySuffixPopupService
+        private agiosCasePopupService: AgiosCasePopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.agiosCasePopupService
-                    .open(AgiosCaseMySuffixDialogComponent as Component, params['id']);
+                    .open(AgiosCaseDialogComponent as Component, params['id']);
             } else {
                 this.agiosCasePopupService
-                    .open(AgiosCaseMySuffixDialogComponent as Component);
+                    .open(AgiosCaseDialogComponent as Component);
             }
         });
     }

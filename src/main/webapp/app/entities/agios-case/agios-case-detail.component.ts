@@ -3,22 +3,22 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager  } from 'ng-jhipster';
 
-import { AgiosCaseMySuffix } from './agios-case-my-suffix.model';
-import { AgiosCaseMySuffixService } from './agios-case-my-suffix.service';
+import { AgiosCase } from './agios-case.model';
+import { AgiosCaseService } from './agios-case.service';
 
 @Component({
-    selector: 'jhi-agios-case-my-suffix-detail',
-    templateUrl: './agios-case-my-suffix-detail.component.html'
+    selector: 'jhi-agios-case-detail',
+    templateUrl: './agios-case-detail.component.html'
 })
-export class AgiosCaseMySuffixDetailComponent implements OnInit, OnDestroy {
+export class AgiosCaseDetailComponent implements OnInit, OnDestroy {
 
-    agiosCase: AgiosCaseMySuffix;
+    agiosCase: AgiosCase;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: JhiEventManager,
-        private agiosCaseService: AgiosCaseMySuffixService,
+        private agiosCaseService: AgiosCaseService,
         private route: ActivatedRoute
     ) {
     }

@@ -4,23 +4,23 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActiva
 import { UserRouteAccessService } from '../../shared';
 import { JhiPaginationUtil } from 'ng-jhipster';
 
-import { AgiosCaseMySuffixComponent } from './agios-case-my-suffix.component';
-import { AgiosCaseMySuffixDetailComponent } from './agios-case-my-suffix-detail.component';
-import { AgiosCaseMySuffixPopupComponent } from './agios-case-my-suffix-dialog.component';
-import { AgiosCaseMySuffixDeletePopupComponent } from './agios-case-my-suffix-delete-dialog.component';
+import { AgiosCaseComponent } from './agios-case.component';
+import { AgiosCaseDetailComponent } from './agios-case-detail.component';
+import { AgiosCasePopupComponent } from './agios-case-dialog.component';
+import { AgiosCaseDeletePopupComponent } from './agios-case-delete-dialog.component';
 
 export const agiosCaseRoute: Routes = [
     {
-        path: 'agios-case-my-suffix',
-        component: AgiosCaseMySuffixComponent,
+        path: 'agios-case',
+        component: AgiosCaseComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'AgiosCases'
         },
         canActivate: [UserRouteAccessService]
     }, {
-        path: 'agios-case-my-suffix/:id',
-        component: AgiosCaseMySuffixDetailComponent,
+        path: 'agios-case/:id',
+        component: AgiosCaseDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'AgiosCases'
@@ -31,8 +31,8 @@ export const agiosCaseRoute: Routes = [
 
 export const agiosCasePopupRoute: Routes = [
     {
-        path: 'agios-case-my-suffix-new',
-        component: AgiosCaseMySuffixPopupComponent,
+        path: 'agios-case-new',
+        component: AgiosCasePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'AgiosCases'
@@ -41,8 +41,8 @@ export const agiosCasePopupRoute: Routes = [
         outlet: 'popup'
     },
     {
-        path: 'agios-case-my-suffix/:id/edit',
-        component: AgiosCaseMySuffixPopupComponent,
+        path: 'agios-case/:id/edit',
+        component: AgiosCasePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'AgiosCases'
@@ -51,8 +51,8 @@ export const agiosCasePopupRoute: Routes = [
         outlet: 'popup'
     },
     {
-        path: 'agios-case-my-suffix/:id/delete',
-        component: AgiosCaseMySuffixDeletePopupComponent,
+        path: 'agios-case/:id/delete',
+        component: AgiosCaseDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'AgiosCases'

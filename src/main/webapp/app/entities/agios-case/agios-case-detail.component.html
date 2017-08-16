@@ -8,6 +8,10 @@
         <dd>
             <span>{{agiosCase.caseNr}}</span>
         </dd>
+        <dt><span>Case No</span></dt>
+        <dd>
+            <span>{{agiosCase.caseNo}}</span>
+        </dd>
         <dt><span>Person Nr</span></dt>
         <dd>
             <span>{{agiosCase.personNr}}</span>
@@ -24,9 +28,37 @@
         <dd>
             <span>{{agiosCase.workflowUid}}</span>
         </dd>
-        <dt><span>Case No</span></dt>
+        <dt><span>Reasons</span></dt>
         <dd>
-            <span>{{agiosCase.caseNo}}</span>
+            <span>{{agiosCase.reasons}}</span>
+        </dd>
+        <dt><span>Status Uid</span></dt>
+        <dd>
+            <span>{{agiosCase.statusUid}}</span>
+        </dd>
+        <dt><span>Current Step Uid</span></dt>
+        <dd>
+            <span>{{agiosCase.currentStepUid}}</span>
+        </dd>
+        <dt><span>Code Name</span></dt>
+        <dd>
+            <span>{{agiosCase.codeName}}</span>
+        </dd>
+        <dt><span>Evt Open</span></dt>
+        <dd>
+            <span>{{agiosCase.evtOpen}}</span>
+        </dd>
+        <dt><span>Display Name</span></dt>
+        <dd>
+            <span>{{agiosCase.displayName}}</span>
+        </dd>
+        <dt><span>Evtclose</span></dt>
+        <dd>
+            <span>{{agiosCase.evtclose}}</span>
+        </dd>
+        <dt><span>Agios Entity</span></dt>
+        <dd>
+            <span>{{agiosCase.agiosEntity}}</span>
         </dd>
     </dl>
 
@@ -37,7 +69,7 @@
     </button>
 
     <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'agios-case-my-suffix/'+ agiosCase.id + '/edit'} }]"
+            [routerLink]="['/', { outlets: { popup: 'agios-case/'+ agiosCase.id + '/edit'} }]"
             replaceUrl="true"
             class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>

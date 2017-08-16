@@ -2,31 +2,31 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
-import { AgiosCaseMySuffix } from './agios-case-my-suffix.model';
+import { AgiosCase } from './agios-case.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
 
 @Injectable()
-export class AgiosCaseMySuffixService {
+export class AgiosCaseService {
 
     private resourceUrl = 'api/agios-cases';
 
     constructor(private http: Http) { }
 
-    create(agiosCase: AgiosCaseMySuffix): Observable<AgiosCaseMySuffix> {
+    create(agiosCase: AgiosCase): Observable<AgiosCase> {
         const copy = this.convert(agiosCase);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
-    update(agiosCase: AgiosCaseMySuffix): Observable<AgiosCaseMySuffix> {
+    update(agiosCase: AgiosCase): Observable<AgiosCase> {
         const copy = this.convert(agiosCase);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
-    find(id: number): Observable<AgiosCaseMySuffix> {
+    find(id: number): Observable<AgiosCase> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             return res.json();
         });
@@ -47,8 +47,8 @@ export class AgiosCaseMySuffixService {
         return new ResponseWrapper(res.headers, jsonResponse, res.status);
     }
 
-    private convert(agiosCase: AgiosCaseMySuffix): AgiosCaseMySuffix {
-        const copy: AgiosCaseMySuffix = Object.assign({}, agiosCase);
+    private convert(agiosCase: AgiosCase): AgiosCase {
+        const copy: AgiosCase = Object.assign({}, agiosCase);
         return copy;
     }
 }

@@ -1,17 +1,17 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AgiosCaseMySuffix } from './agios-case-my-suffix.model';
-import { AgiosCaseMySuffixService } from './agios-case-my-suffix.service';
+import { AgiosCase } from './agios-case.model';
+import { AgiosCaseService } from './agios-case.service';
 
 @Injectable()
-export class AgiosCaseMySuffixPopupService {
+export class AgiosCasePopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
         private modalService: NgbModal,
         private router: Router,
-        private agiosCaseService: AgiosCaseMySuffixService
+        private agiosCaseService: AgiosCaseService
 
     ) {
         this.ngbModalRef = null;
@@ -32,14 +32,14 @@ export class AgiosCaseMySuffixPopupService {
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
-                    this.ngbModalRef = this.agiosCaseModalRef(component, new AgiosCaseMySuffix());
+                    this.ngbModalRef = this.agiosCaseModalRef(component, new AgiosCase());
                     resolve(this.ngbModalRef);
                 }, 0);
             }
         });
     }
 
-    agiosCaseModalRef(component: Component, agiosCase: AgiosCaseMySuffix): NgbModalRef {
+    agiosCaseModalRef(component: Component, agiosCase: AgiosCase): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.agiosCase = agiosCase;
         modalRef.result.then((result) => {

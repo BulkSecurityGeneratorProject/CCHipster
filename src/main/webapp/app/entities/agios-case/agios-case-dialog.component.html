@@ -1,0 +1,95 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAgiosCaseLabel">Create or edit a Agios Case</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!agiosCase.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="agiosCase.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_caseNr">Case Nr</label>
+            <input type="number" class="form-control" name="caseNr" id="field_caseNr"
+                [(ngModel)]="agiosCase.caseNr"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_caseNo">Case No</label>
+            <input type="text" class="form-control" name="caseNo" id="field_caseNo"
+                [(ngModel)]="agiosCase.caseNo"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_personNr">Person Nr</label>
+            <input type="text" class="form-control" name="personNr" id="field_personNr"
+                [(ngModel)]="agiosCase.personNr"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_companyNr">Company Nr</label>
+            <input type="text" class="form-control" name="companyNr" id="field_companyNr"
+                [(ngModel)]="agiosCase.companyNr"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_agiosNodeName">Agios Node Name</label>
+            <input type="text" class="form-control" name="agiosNodeName" id="field_agiosNodeName"
+                [(ngModel)]="agiosCase.agiosNodeName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_workflowUid">Workflow Uid</label>
+            <input type="text" class="form-control" name="workflowUid" id="field_workflowUid"
+                [(ngModel)]="agiosCase.workflowUid"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_reasons">Reasons</label>
+            <input type="text" class="form-control" name="reasons" id="field_reasons"
+                [(ngModel)]="agiosCase.reasons"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_statusUid">Status Uid</label>
+            <input type="text" class="form-control" name="statusUid" id="field_statusUid"
+                [(ngModel)]="agiosCase.statusUid"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_currentStepUid">Current Step Uid</label>
+            <input type="text" class="form-control" name="currentStepUid" id="field_currentStepUid"
+                [(ngModel)]="agiosCase.currentStepUid"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_codeName">Code Name</label>
+            <input type="text" class="form-control" name="codeName" id="field_codeName"
+                [(ngModel)]="agiosCase.codeName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_evtOpen">Evt Open</label>
+            <input type="text" class="form-control" name="evtOpen" id="field_evtOpen"
+                [(ngModel)]="agiosCase.evtOpen"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_displayName">Display Name</label>
+            <input type="text" class="form-control" name="displayName" id="field_displayName"
+                [(ngModel)]="agiosCase.displayName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_evtclose">Evtclose</label>
+            <input type="text" class="form-control" name="evtclose" id="field_evtclose"
+                [(ngModel)]="agiosCase.evtclose"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_agiosEntity">Agios Entity</label>
+            <input type="text" class="form-control" name="agiosEntity" id="field_agiosEntity"
+                [(ngModel)]="agiosCase.agiosEntity"  />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -4,6 +4,10 @@
     "fields": [
         {
             "fieldName": "caseNr",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "caseNo",
             "fieldType": "String"
         },
         {
@@ -23,15 +27,42 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "caseNo",
+            "fieldName": "reasons",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "statusUid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currentStepUid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "codeName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "evtOpen",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "displayName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "evtclose",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "agiosEntity",
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170814094737",
+    "changelogDate": "20170816080132",
     "javadoc": "not an ignored comment",
     "entityTableName": "agios_case",
     "dto": "mapstruct",
     "pagination": "no",
-    "service": "serviceImpl",
-    "angularJSSuffix": "mySuffix"
+    "service": "serviceImpl"
 }
