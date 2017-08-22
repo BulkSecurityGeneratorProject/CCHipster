@@ -109,4 +109,18 @@ public class AgiosCaseServiceImpl implements AgiosCaseService{
         log.debug("Request to delete AgiosCase : {}", id);
         agiosCaseRepository.delete(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+	public List<AgiosCaseDTO> search(String query) {
+		//ricerca per case_no
+		String url = "http://localhost:8080/bsicrm/aduno-seb?action=caseTablePage&query="+query;
+		ResponseEntity<List<AgiosCaseDTO>> rateResponse =
+                restTemplate.exchange(url,
+                            HttpMethod.GET, null, new ParameterizedTypeReference<List<AgiosCaseDTO>>() {
+                    });
+        List<AgiosCaseDTO> rates = rateResponse.getBody();
+        
+        return rates;
+	}
 }

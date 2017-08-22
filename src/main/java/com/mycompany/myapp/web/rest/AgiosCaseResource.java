@@ -15,6 +15,8 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
 
 /**
  * REST controller for managing AgiosCase.
@@ -114,4 +116,20 @@ public class AgiosCaseResource {
         agiosCaseService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * SEARCH  /_search/agios-cases?query=:query : search for the agiosCase corresponding
+     * to the query.
+     *
+     * @param query the query of the agiosCase search
+     * @return the result of the search
+     */
+    //@GetMapping("/_search/agios-cases")
+    @GetMapping("/agios-cases-by-query")
+    @Timed
+    public List<AgiosCaseDTO> searchAgiosCases(@RequestParam String query) {
+        log.debug("REST request to search AgiosCases for query {}", query);
+        return agiosCaseService.search(query);
+    }
+
 }
